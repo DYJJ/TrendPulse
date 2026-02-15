@@ -115,6 +115,7 @@ class ApiClient {
     String language = 'en',
     List<String> sources = const ['reddit', 'youtube', 'twitter'],
     int intervalHours = 6,
+    int limitPerSource = 50,
     int alertThreshold = 30,
   }) async {
     final response = await _dio.post('/subscriptions', data: {
@@ -122,6 +123,7 @@ class ApiClient {
       'language': language,
       'sources': sources,
       'interval_hours': intervalHours,
+      'limit_per_source': limitPerSource,
       'alert_threshold': alertThreshold,
     });
     return Subscription.fromJson(response.data);

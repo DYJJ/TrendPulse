@@ -13,6 +13,7 @@ class SubscriptionPage extends StatefulWidget {
 class _SubscriptionPageState extends State<SubscriptionPage> {
   final _keywordController = TextEditingController();
   int _intervalHours = 6;
+  int _limitPerSource = 50;
   int _alertThreshold = 30;
 
   @override
@@ -38,6 +39,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     await provider.createSubscription(
       keyword: keyword,
       intervalHours: _intervalHours,
+      limitPerSource: _limitPerSource,
       alertThreshold: _alertThreshold,
     );
 
@@ -222,6 +224,51 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           ),
           const Divider(height: 0.33, indent: 16, color: Color(0xFF38383A)),
 
+          // 采集数量
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Row(
+              children: [
+                const Text('采集数量', style: TextStyle(fontSize: 17)),
+                const SizedBox(width: 8),
+                Text(
+                  '每源 $_limitPerSource 条',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: const Color(0xFF8E8E93).withValues(alpha: 0.6),
+                  ),
+                ),
+                const Spacer(),
+                SizedBox(
+                  width: 80,
+                  height: 36,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                      filled: true,
+                      fillColor: const Color(0xFF2C2C2E),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    controller: TextEditingController(text: '$_limitPerSource'),
+                    onChanged: (v) {
+                      final n = int.tryParse(v);
+                      if (n != null && n >= 1 && n <= 1000) {
+                        setState(() => _limitPerSource = n);
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 0.33, indent: 16, color: Color(0xFF38383A)),
+
           // 报警阈值
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -337,7 +384,7 @@ class _SubscriptionTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '每 ${subscription.intervalHours}h · 报警 < ${subscription.alertThreshold}分 · ${subscription.sources.join(", ")}',
+                  '每 ${subscription.intervalHours}h · ${subscription.limitPerSource}条/源 · 报警 < ${subscription.alertThreshold}分',
                   style: TextStyle(
                     fontSize: 13,
                     color: const Color(0xFF8E8E93).withValues(alpha: 0.8),

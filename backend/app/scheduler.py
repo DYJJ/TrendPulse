@@ -53,11 +53,12 @@ async def run_subscription_task(subscription_id: str) -> None:
         # 创建采集任务
         task_id = str(uuid.uuid4())
         now = datetime.now(timezone.utc)
+        limit = sub.limit_per_source if sub.limit_per_source else 50
         task_db = CollectionTaskDB(
             id=task_id,
             keyword=sub.keyword,
             language=sub.language,
-            limit_per_source=50,
+            limit_per_source=limit,
             sources=sub.sources,
             status="queued",
             progress=0,
@@ -75,7 +76,7 @@ async def run_subscription_task(subscription_id: str) -> None:
         request = CreateCollectionRequest(
             keyword=sub.keyword,
             language=sub.language,
-            limit=50,
+            limit=limit,
             sources=sub.sources,
         )
         await run_collection_task(task_id, request)

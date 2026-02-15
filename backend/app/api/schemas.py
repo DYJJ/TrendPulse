@@ -106,6 +106,7 @@ class CreateSubscriptionRequest(BaseModel):
         description="数据源列表",
     )
     interval_hours: int = Field(default=6, ge=1, description="采集间隔（小时）")
+    limit_per_source: int = Field(default=50, ge=1, le=1000, description="每次采集条数")
     alert_threshold: int = Field(default=30, ge=0, le=100, description="报警阈值")
 
 
@@ -116,6 +117,7 @@ class SubscriptionResponse(BaseModel):
     language: str
     sources: List[str]
     interval_hours: int
+    limit_per_source: int
     alert_threshold: int
     status: str
     created_at: datetime

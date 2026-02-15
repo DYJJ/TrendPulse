@@ -29,6 +29,21 @@ logger = logging.getLogger(__name__)
 # 创建数据库表
 Base.metadata.create_all(bind=engine)
 
+# 自动迁移：为已有的 subscriptions 表添加 limit_per_source 列
+try:
+    with engine.connect() as conn:
+        from sqlalchemy import text, inspect
+        inspector = inspect(engine)
+        columns = [c["name"] for c in inspector.get_columns("subscriptions")]
+        if "limit_per_source" not in columns:
+            conn.execute(text(
+                "ALTER TABLE subscriptions ADD COLUMN limit_per_source INTEGER NOT NULL DEFAULT 50"
+            ))
+            conn.commit()
+            logging.getLogger(__name__).info("已为 subscriptions 表添加 limit_per_source 列")
+except Exception:
+    pass  # 表不存在时忽略
+
 app = FastAPI(
     title="TrendPulse 舆情脉冲",
     description="多源社交媒体舆情分析系统API",

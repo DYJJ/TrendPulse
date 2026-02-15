@@ -140,6 +140,7 @@ class SubscriptionDB(Base):
     language = Column(String(10), nullable=False)
     sources = Column(JSON, nullable=False)
     interval_hours = Column(Integer, nullable=False, default=6)
+    limit_per_source = Column(Integer, nullable=False, default=50)
     alert_threshold = Column(Integer, nullable=False, default=30)
     status = Column(String(50), nullable=False, default="active")
     last_run_at = Column(DateTime, nullable=True)

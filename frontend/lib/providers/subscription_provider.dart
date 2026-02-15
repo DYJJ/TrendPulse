@@ -41,6 +41,7 @@ class SubscriptionProvider extends ChangeNotifier {
     String language = 'en',
     List<String> sources = const ['reddit', 'youtube', 'twitter'],
     int intervalHours = 6,
+    int limitPerSource = 50,
     int alertThreshold = 30,
   }) async {
     _isLoading = true;
@@ -53,6 +54,7 @@ class SubscriptionProvider extends ChangeNotifier {
         language: language,
         sources: sources,
         intervalHours: intervalHours,
+        limitPerSource: limitPerSource,
         alertThreshold: alertThreshold,
       );
       _subscriptions.insert(0, sub);
