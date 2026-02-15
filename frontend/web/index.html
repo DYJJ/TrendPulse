@@ -31,6 +31,17 @@
 
   <title>trendpulse</title>
   <link rel="manifest" href="manifest.json">
+
+  <script>
+    // 强制清除旧的 Service Worker 缓存，确保更新生效
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
 </head>
 <body>
   <!--
