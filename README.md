@@ -65,7 +65,7 @@ graph TB
     end
 
     subgraph "存储层"
-        DB[(SQLite)]
+        DB[(PostgreSQL)]
     end
 
     UI --> API
@@ -309,7 +309,7 @@ backend/.venv/bin/python -m pytest backend/tests/test_twitter_zero_cost_utils_pr
 | `TWITTER_PROXY` | 否 | - | 代理地址（如 `http://127.0.0.1:7890`） |
 | `APP_HOST` | 否 | `0.0.0.0` | 应用监听地址 |
 | `APP_PORT` | 否 | `8000` | 应用监听端口 |
-| `DATABASE_URL` | 否 | `sqlite:///accounts.db` | 数据库连接 URL |
+| `DATABASE_URL` | 否 | `postgresql://user:password@localhost:5432/trendpulse` | 数据库连接 URL |
 | `TOKEN_WARNING_THRESHOLD` | 否 | `100000` | Token 使用量警告阈值 |
 | `COLLECTION_BATCH_SIZE` | 否 | `500` | 采集批次大小 |
 
@@ -318,7 +318,7 @@ backend/.venv/bin/python -m pytest backend/tests/test_twitter_zero_cost_utils_pr
 | 层级 | 技术 |
 |------|------|
 | 后端框架 | FastAPI + Uvicorn |
-| 数据库 | SQLite + SQLAlchemy ORM |
+| 数据库 | PostgreSQL + SQLAlchemy ORM |
 | 数据采集 | Arctic Shift API / yt-dlp / Syndication API / AT Protocol / curl_cffi |
 | AI 分析 | OpenAI API (可配置) + tiktoken |
 | 定时任务 | APScheduler |
