@@ -1,0 +1,61 @@
+# 环境变量（包含 API 密钥等敏感信息）
+.env
+backend/.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# 数据库文件
+*.db
+*.sqlite3
+
+# 日志文件
+*.log
+*.log.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.iml
+
+# 测试缓存
+.pytest_cache/
+htmlcov/
+.coverage
+.hypothesis/
+
+# Playwright
+playwright/.cache/
+
+# Flutter
+frontend/.dart_tool/
+frontend/.packages
+frontend/build/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.metadata
+
+# 调试脚本（开发时临时使用，不需要提交）
+backend/_debug_*.py
+backend/_test_*.py
+
+# Kiro 配置（IDE 专用）
+.kiro/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 其他不需要提交的文件
+要求.txt
