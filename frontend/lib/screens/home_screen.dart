@@ -3,6 +3,7 @@ import 'package:trendpulse/screens/dashboard_page.dart';
 import 'package:trendpulse/screens/data_flow_page.dart';
 import 'package:trendpulse/screens/mindmap_page.dart';
 import 'package:trendpulse/screens/search_page.dart';
+import 'package:trendpulse/screens/subscription_page.dart';
 
 /// 主页面 - iOS TabBar 风格底部导航
 class HomeScreen extends StatefulWidget {
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const DashboardPage(),
       const DataFlowPage(),
       const MindMapPage(),
+      const SubscriptionPage(),
     ];
   }
 
@@ -50,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             NavigationDestination(icon: Icon(Icons.bar_chart_rounded), label: '分析'),
             NavigationDestination(icon: Icon(Icons.list_rounded), label: '数据'),
             NavigationDestination(icon: Icon(Icons.account_tree_rounded), label: '导图'),
+            NavigationDestination(icon: Icon(Icons.notifications_rounded), label: '订阅'),
           ],
         ),
       ),
